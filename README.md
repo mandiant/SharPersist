@@ -17,10 +17,11 @@ Take the below steps to setup Visual Studio in order to compile the project your
 
 ### Libraries Used
 The below 3rd party libraries are used in this project.
-|Library|URL|License|
-|--|--|--|
-| TaskScheduler | [https://github.com/dahall/TaskScheduler](https://github.com/dahall/TaskScheduler) |MIT License |
-|Fody | [https://github.com/Fody/Fody](https://github.com/Fody/Fody)| MIT License|
+
+| Library | URL | License |
+| ------------- | ------------- | ------------- |
+| TaskScheduler  | [https://github.com/dahall/TaskScheduler](https://github.com/dahall/TaskScheduler) | MIT License  |
+| Fody  | [https://github.com/Fody/Fody](https://github.com/Fody/Fody) | MIT License  |
 
 
 ### Steps to Build
