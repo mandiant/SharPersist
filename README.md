@@ -1,11 +1,11 @@
 # SharPersist
 Windows persistence toolkit written in C#. **For detailed usage information on each technique, see the WIKI.**
 
-# RELEASE
+# Release
 * Public version 1.0 of SharPersist can be found in the "Releases" section
 
 
-# INSTALLATION/BUILDING
+# Installation/Building
 
 ## Pre-Compiled 
 
@@ -27,7 +27,7 @@ Take the below steps to setup Visual Studio in order to compile the project your
 
 <b>Note: </b>.NET Framework 4 is required to use this tool and to compile it. This is due to the Fody package requiring a minimum of .NET Framework 4. This package is responsible for bundling external .NET assemblies (TaskScheduler) into the compiled SharPersist binary.
 
-# ARGUMENTS/OPTIONS
+# Arguments/Options
 
 * <b>-t </b> - persistence technique
 * <b>-c </b> - command to execute
@@ -41,7 +41,7 @@ Take the below steps to setup Visual Studio in order to compile the project your
 * <b>-h </b> - help page
 
  
-# PERSISTENCE TECHNIQUES
+# Persistence Techniques
 * keepass - backdoor keepass config file
 * reg - registry key addition/modification
 * schtaskbackdoor - backdoor scheduled task by adding an additional action to it
@@ -51,21 +51,21 @@ Take the below steps to setup Visual Studio in order to compile the project your
 * schtask - create new scheduled task
 
 
-# METHODS
+# Methods
 * add - add persistence technique
 * remove - remove persistence technique
 * check - perform dry-run of persistence technique
 * list - list current entries for persistence technique
 
 
-# OPTIONAL ADD-ONS
+# Optional Add-Ons
 * env - optional add-on for env variable obfuscation for registry
 * hourly - optional add-on for schtask frequency
 * daily - optional add-on for schtask frequency
 * logon - optional add-on for schtask frequency
 
 
-# REGISTRY KEYS
+# Registry Keys
 * hklmrun
 * hklmrunonce 
 * hklmrunonceex 
@@ -76,8 +76,8 @@ Take the below steps to setup Visual Studio in order to compile the project your
 * userinit (reg value not needed)
 
 
-# EXAMPLES
-## ADDING PERSISTENCE TRIGGERS (ADD)
+# Examples
+## Adding Persistence Triggers (Add)
 
 **KeePass**
 
@@ -121,7 +121,7 @@ Take the below steps to setup Visual Studio in order to compile the project your
 `SharPersist -t schtask -c "C:\Windows\System32\cmd.exe" -a "/c calc.exe" -n "Some Task -m add -o hourly`
 
 
-## REMOVING PERSISTENCE TRIGGERS (REMOVE)
+## Removing Persistence Triggers (Remove)
 
 
 **KeePass**
@@ -163,7 +163,7 @@ Take the below steps to setup Visual Studio in order to compile the project your
 
 `SharPersist -t schtask -n "Some Task" -m remove`
 
-## PERFORM DRY RUN OF PERSISTENCE TRIGGER (CHECK)
+## Perform Dry Run of Persistence Trigger (Check)
 
 
 **KeePass**
@@ -208,7 +208,7 @@ Take the below steps to setup Visual Studio in order to compile the project your
 `SharPersist -t schtask -c "C:\Windows\System32\cmd.exe" -a "/c calc.exe" -n "Some Task" -m check -o hourly`
 
 
-## LIST PERSISTENCE TRIGGER ENTRIES (LIST)
+## List Persistence Trigger Entries (List)
 
 
 **Registry**
