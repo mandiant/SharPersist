@@ -52,7 +52,7 @@ The below 3rd party libraries are used in this project.
 * <b>-h </b> - help page
 
  
-# Persistence Techniques
+# Persistence Techniques (-t)
 * `keepass` - backdoor keepass config file
 * `reg` - registry key addition/modification
 * `schtaskbackdoor` - backdoor scheduled task by adding an additional action to it
@@ -62,21 +62,21 @@ The below 3rd party libraries are used in this project.
 * `schtask` - create new scheduled task
 
 
-# Methods
+# Methods (-m)
 * `add` - add persistence technique
 * `remove` - remove persistence technique
 * `check` - perform dry-run of persistence technique
 * `list` - list current entries for persistence technique
 
 
-# Optional Add-Ons
+# Optional Add-Ons (-o)
 * `env` - optional add-on for env variable obfuscation for registry
 * `hourly` - optional add-on for schtask frequency
 * `daily` - optional add-on for schtask frequency
 * `logon` - optional add-on for schtask frequency
 
 
-# Registry Keys
+# Registry Keys (-k)
 * `hklmrun`
 * `hklmrunonce`
 * `hklmrunonceex` 
