@@ -15,6 +15,16 @@ Windows persistence toolkit written in C#. **For detailed usage information on e
 
 Take the below steps to setup Visual Studio in order to compile the project yourself. This requires a couple of .NET libraries that can be installed from the NuGet package manager.
 
+### Libraries Used
+The below 3rd party libraries are used in this project.
+|Library|URL|License|
+|--|--|--|
+| TaskScheduler | [https://github.com/dahall/TaskScheduler](https://github.com/dahall/TaskScheduler) |MIT License |
+|Fody | [https://github.com/Fody/Fody](https://github.com/Fody/Fody)| MIT License|
+
+
+### Steps to Build
+
 * Load the Visual Studio project up and go to "Tools" --> "NuGet Package Manager" --> "Package Manager Settings"
 * Go to "NuGet Package Manager" --> "Package Sources"
 * Add a package source with the URL "https://api.nuget.org/v3/index.json"
