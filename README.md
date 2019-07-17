@@ -53,38 +53,38 @@ The below 3rd party libraries are used in this project.
 
  
 # Persistence Techniques
-* keepass - backdoor keepass config file
-* reg - registry key addition/modification
-* schtaskbackdoor - backdoor scheduled task by adding an additional action to it
-* startupfolder - lnk file in startup folder
-* tortoisesvn - tortoise svn hook script
-* service - create new windows service
-* schtask - create new scheduled task
+* `keepass` - backdoor keepass config file
+* `reg` - registry key addition/modification
+* `schtaskbackdoor` - backdoor scheduled task by adding an additional action to it
+* `startupfolder` - lnk file in startup folder
+* `tortoisesvn` - tortoise svn hook script
+* `service` - create new windows service
+* `schtask` - create new scheduled task
 
 
 # Methods
-* add - add persistence technique
-* remove - remove persistence technique
-* check - perform dry-run of persistence technique
-* list - list current entries for persistence technique
+* `add` - add persistence technique
+* `remove` - remove persistence technique
+* `check` - perform dry-run of persistence technique
+* `list` - list current entries for persistence technique
 
 
 # Optional Add-Ons
-* env - optional add-on for env variable obfuscation for registry
-* hourly - optional add-on for schtask frequency
-* daily - optional add-on for schtask frequency
-* logon - optional add-on for schtask frequency
+* `env` - optional add-on for env variable obfuscation for registry
+* `hourly` - optional add-on for schtask frequency
+* `daily` - optional add-on for schtask frequency
+* `logon` - optional add-on for schtask frequency
 
 
 # Registry Keys
-* hklmrun
-* hklmrunonce 
-* hklmrunonceex 
-* hkcurun
-* hkcurunonce 
-* logonscript (reg value not needed)
-* stickynotes (reg value not needed)
-* userinit (reg value not needed)
+* `hklmrun`
+* `hklmrunonce`
+* `hklmrunonceex` 
+* `hkcurun`
+* `hkcurunonce` 
+* `logonscript` 
+* `stickynotes`
+* `userinit`
 
 
 # Examples
