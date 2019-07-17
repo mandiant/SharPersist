@@ -1,5 +1,4 @@
 # SharPersist
-# DESCRIPTION
 Windows persistence toolkit written in C#. **For detailed usage information on each technique, see the WIKI.**
 
 # RELEASE
