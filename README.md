@@ -29,9 +29,8 @@ The below 3rd party libraries are used in this project.
 * Load the Visual Studio project up and go to "Tools" --> "NuGet Package Manager" --> "Package Manager Settings"
 * Go to "NuGet Package Manager" --> "Package Sources"
 * Add a package source with the URL "https://api.nuget.org/v3/index.json"
-* Install the Fody NuGet package, which will also install the Costura.Fody package. The older version of Fody (4.2.1) is needed, so that you do not need Visual Studio 2019.
-  * `Install-Package Fody -Version 4.2.1`
-* In Solution Explorer on right-hand side of Visual Studio, right-click "References", then select "Add Reference". Select "Microsoft.CSharp".
+* Install the Costura.Fody NuGet package. The older version of Costura.Fody (3.3.3) is needed, so that you do not need Visual Studio 2019.
+  * `Install-Package Costura.Fody -Version 3.3.3`
 * Install the TaskScheduler package
   * `Install-Package TaskScheduler -Version 2.8.11`
 * You can now build the project yourself!
