@@ -35,8 +35,6 @@ The below 3rd party libraries are used in this project.
   * `Install-Package TaskScheduler -Version 2.8.11`
 * You can now build the project yourself!
 
-<b>Note: </b>.NET Framework 4 is required to use this tool and to compile it. This is due to the Fody package requiring a minimum of .NET Framework 4. This package is responsible for bundling external .NET assemblies (TaskScheduler) into the compiled SharPersist binary.
-
 # Arguments/Options
 
 * <b>-t </b> - persistence technique
