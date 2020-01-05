@@ -1,2 +1,5 @@
+--- v1.0.1 ---
+Service persistence bug fixes
+
 --- v1.0 ---
 Initial Public Release
