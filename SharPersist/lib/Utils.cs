@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Security;
 using System.Security.Cryptography;
 using System.ServiceProcess;
@@ -12,6 +13,9 @@ namespace SharPersist.lib
 {
     public class Utils
     {
+
+        [DllImport("shell32.dll")] public static extern bool IsUserAnAdmin();
+
 
         /**
         * Parse command line arguments
@@ -48,7 +52,7 @@ namespace SharPersist.lib
        * */
         public static void PrintHelp()
         {
-            Console.Write("\nSharPersist (v1.0) - C# Windows Persistence Toolkit\nAuthor: Brett Hawkins\n\n");
+            Console.Write("\nSharPersist (v1.0.1) - C# Windows Persistence Toolkit\nAuthor: Brett Hawkins\n\n");
             Console.Write("DESCRIPTION:\n\n\tWindows persistence toolkit written in C#\n\n");
             Console.Write("SWITCHES:\n\n");
             Console.Write("\t-t: persistence technique\n\n");
