@@ -57,6 +57,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="KeePassBackdoor.cs" />
+    <Compile Include="lib\NativeMethods.cs" />
+    <Compile Include="lib\ServiceControlHandler.cs" />
     <Compile Include="lib\Utils.cs" />
     <Compile Include="Persistence.cs" />
     <Compile Include="RegistryPersist.cs" />

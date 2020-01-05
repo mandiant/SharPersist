@@ -11,7 +11,7 @@ namespace SharPersist
 {
     public class Service : Persistence
     {
-        public Service(string persistMethod, string command, string commandArg, string theKey, string theVal, string theName, string filePath, string status, string option) : base(persistMethod, command, commandArg, theKey, theVal, theName, filePath, status,option)
+        public Service(string persistMethod, string command, string commandArg, string theKey, string theVal, string theName, string filePath, string status, string option) : base(persistMethod, command, commandArg, theKey, theVal, theName, filePath, status, option)
         {
             initialize(persistMethod, command, commandArg, theKey, theVal, theName, filePath, status, option);
 
@@ -83,25 +83,54 @@ namespace SharPersist
 
                 try
                 {
-                    ServiceProcessInstaller ProcessServiceInstaller = new ServiceProcessInstaller();
-                    ProcessServiceInstaller.Account = ServiceAccount.User;
 
-                    ServiceInstaller ServiceInstallerObj = new ServiceInstaller();
-                    InstallContext Context = new System.Configuration.Install.InstallContext();
-                    String path = String.Format("/assemblypath={0}", command + " " + commandArg);
-                    string[] cmdline = { path };
 
-                    Context = new InstallContext("", cmdline);
+                    // open a handle to the service control manager
+                    using (var scmHandle = lib.NativeMethods.OpenSCManager(Environment.MachineName, null, lib.NativeMethods.SCM_ACCESS.SC_MANAGER_CREATE_SERVICE))
+                    {
 
-                    ServiceInstallerObj.DisplayName = theName;
-                    ServiceInstallerObj.ServiceName = theName;
-                    ServiceInstallerObj.Description = theName;
-                    ServiceInstallerObj.StartType = ServiceStartMode.Automatic;
-                    ServiceInstallerObj.Parent = ProcessServiceInstaller;
-                    ServiceInstallerObj.Context = Context;
+                        // if unable to open service manager, display message and return
+                        if (scmHandle.IsInvalid)
+                        {
+                            Console.WriteLine("");
+                            Console.WriteLine("[-] ERROR: Unable to open service manager on host.");
+                            return;
 
-                    System.Collections.Specialized.ListDictionary state = new System.Collections.Specialized.ListDictionary();
-                    ServiceInstallerObj.Install(state);
+                        }
+
+                        else
+                        {
+                            try
+                            {
+
+                                // if able to open service manager, continue to create the service
+                                var serviceHandle = lib.NativeMethods.CreateService(
+                                    scmHandle,
+                                    theName,
+                                    theName,
+                                    lib.NativeMethods.SERVICE_ACCESS.SERVICE_ALL_ACCESS,
+                                    lib.NativeMethods.SERVICE_TYPES.SERVICE_WIN32_OWN_PROCESS,
+                                    lib.NativeMethods.SERVICE_START_TYPES.SERVICE_AUTO_START,
+                                    lib.NativeMethods.SERVICE_ERROR_CONTROL.SERVICE_ERROR_IGNORE,
+                                    command + " " + commandArg,
+                                    null,
+                                    IntPtr.Zero,
+                                    null,
+                                    null,
+                                    null);
+                            }
+                            catch (Exception ex)
+                            {
+
+                                Console.WriteLine("");
+                                Console.WriteLine("[-] ERROR: Unable to create service.");
+                                return;
+                            }
+
+                        }
+
+                    }
+
                 }
 
                 catch (Exception ex)
@@ -155,14 +184,43 @@ namespace SharPersist
                 try
                 {
 
-                    // remove service by deleting its reg key
-                    Registry.LocalMachine.DeleteSubKey("SYSTEM\\CurrentControlSet\\Services\\" + theName);
+                    // open a handle to the service control manager
+                    using (var scmHandle = lib.NativeMethods.OpenSCManager(Environment.MachineName, null, lib.NativeMethods.SCM_ACCESS.SC_MANAGER_ALL_ACCESS))
+                    {
+
+                        // if unable to open service manager, display message and return
+                        if (scmHandle.IsInvalid)
+                        {
+                            Console.WriteLine("");
+                            Console.WriteLine("[-] ERROR: Unable to open service manager on machine.");
+                            return;
+
+                        }
+
+                        else
+                        {
+
+                            try
+                            {
+                                var serviceHandle = lib.NativeMethods.OpenService(scmHandle, theName, lib.NativeMethods.SERVICE_ACCESS.SERVICE_ALL_ACCESS);
+                                lib.NativeMethods.DeleteService(serviceHandle);
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine("");
+                                Console.WriteLine("[-] ERROR: Unable to delete service.");
+                                return;
+                            }
+                        }
+
+                    } // end using handle
+
 
                 }
 
                 catch (ArgumentException ex)
                 {
-                    Console.WriteLine("[-] ERROR: Service has already been removed from registry.");
+                    Console.WriteLine("[-] ERROR: Service has already been removed.");
                     return;
                 }
                 catch (Exception ex)
@@ -172,7 +230,7 @@ namespace SharPersist
                 }
 
                 Console.WriteLine("");
-                Console.WriteLine("[+] SUCCESS: Service persistence removed from registry. Change will take effect upon next reboot.");
+                Console.WriteLine("[+] SUCCESS: Service persistence removed.");
 
             } // end if service exists
 
@@ -194,7 +252,7 @@ namespace SharPersist
             Console.WriteLine("");
             Console.WriteLine("[*] INFO: Checking if service with that name already exists");
 
-     
+
             bool serviceExists = lib.Utils.ServiceExists(theName);
 
 
@@ -221,6 +279,23 @@ namespace SharPersist
             }
 
             Console.WriteLine("[+] SUCCESS: Correct arguments given");
+
+
+            Console.WriteLine("");
+            Console.WriteLine("[*] INFO: Checking that current user has administrative privileges");
+
+            bool isUserAdmin = lib.Utils.IsUserAnAdmin();
+
+            if (isUserAdmin)
+            {
+                Console.WriteLine("[+] SUCCESS: Current user has administrative privileges");
+
+            }
+            else
+            {
+                Console.WriteLine("[-] ERROR: Current user does NOT have administrative privileges. Ensure you are running in high integrity context.");
+            }
+
 
 
         } // end check persistences
@@ -318,7 +393,7 @@ namespace SharPersist
                 Console.WriteLine("");
                 Console.WriteLine("");
 
-    
+
 
             } // end iterating through services
 
