@@ -4,7 +4,7 @@ Windows persistence toolkit written in C#. **For detailed usage information on e
 Author - Brett Hawkins (@h4wkst3r)
 
 # Release
-* Public version 1.0 of SharPersist can be found in the [Releases](https://github.com/fireeye/SharPersist/releases) section
+* Public version 1.0.1 of SharPersist can be found in the [Releases](https://github.com/fireeye/SharPersist/releases) section
 
 
 # Installation/Building
