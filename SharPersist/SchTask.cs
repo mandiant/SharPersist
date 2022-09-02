@@ -1,4 +1,4 @@
-﻿using Microsoft.Win32.TaskScheduler;
+using Microsoft.Win32.TaskScheduler;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -92,7 +92,8 @@ namespace SharPersist
                     td.RegistrationInfo.Description = theName;
 
                     // set trigger time appropriately based on option provided
-                    string triggerTime = option.ToLower();
+                    string[] optional_addon = option.Split(' ');
+                    string triggerTime = optional_addon[0].ToLower();
 
                     // daily schtask
                     if (triggerTime.Equals("daily"))
@@ -101,7 +102,9 @@ namespace SharPersist
                         // Create a trigger that runs every day and will start randomly between 10 a.m. and 12 p.m.
                         DailyTrigger dt = new DailyTrigger();
                         dt.StartBoundary = DateTime.Today + TimeSpan.FromHours(10);
-                        dt.DaysInterval = 1;
+                       
+                        int interval = Int32.Parse(optional_addon[1]);
+                        dt.DaysInterval = (short)interval;
                         dt.RandomDelay = TimeSpan.FromHours(2);
 
                         td.Triggers.Add(dt);
@@ -112,9 +115,25 @@ namespace SharPersist
                     else if (triggerTime.Equals("hourly"))
                     {
                         TimeTrigger tt = new TimeTrigger();
-                        tt.Repetition.Interval = TimeSpan.FromMinutes(60);
+                        int interval = Int32.Parse(optional_addon[1]);
+                        tt.Repetition.Interval = TimeSpan.FromMinutes(interval*60);
                         td.Triggers.Add(tt);
+                        
                     }
+
+
+
+                    //  schtask every n minutes
+
+                    else if (triggerTime.Equals("minutes"))
+                    {
+                        TimeTrigger tt = new TimeTrigger();
+                        int interval = Int32.Parse(optional_addon[1]);
+                        tt.Repetition.Interval = TimeSpan.FromSeconds(interval * 60);
+                        td.Triggers.Add(tt);
+                            
+                    }
+
 
                     // schtask at logon. this will run as system
                     else if (triggerTime.Equals("logon"))
@@ -469,6 +488,7 @@ namespace SharPersist
                                 Console.WriteLine("");
                                 Console.WriteLine("");
                                 Console.WriteLine("");
+                  
                             }
 
 
