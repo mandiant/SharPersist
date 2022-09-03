@@ -37,6 +37,10 @@ The below 3rd party libraries are used in this project.
   * `Install-Package TaskScheduler -Version 2.8.11`
 * You can now build the project yourself!
 
+* Merge The Dependencies into a Standalone binary using [ILMerge](https://github.com/dotnet/ILMerge)
+
+  * `ILMerge.exe" "C:\SharPersist\SharPersist\bin\Release\SharPersist.exe" /out:"C:\SharPersist_Standalone.exe"     "C:\SharPersist\SharPersist\bin\Release\Microsoft.Win32.TaskScheduler.dll"`
+
 # Arguments/Options
 
 * <b>-t </b> - persistence technique
