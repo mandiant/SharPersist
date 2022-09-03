@@ -125,7 +125,7 @@ namespace SharPersist
 
                     //  schtask every n minutes
 
-                    else if (triggerTime.Equals("minutes"))
+                    else if (triggerTime.Equals("minute"))
                     {
                         TimeTrigger tt = new TimeTrigger();
                         int interval = Int32.Parse(optional_addon[1]);
