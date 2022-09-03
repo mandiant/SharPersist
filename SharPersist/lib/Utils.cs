@@ -83,8 +83,9 @@ namespace SharPersist.lib
 
             Console.Write("OPTIONAL ADD-ONS:\n\n");
             Console.Write("\tenv: optional add-on for env variable obfuscation for registry\n\n");
-            Console.Write("\thourly: optional add-on for schtask frequency\n\n");
-            Console.Write("\tdaily: optional add-on for schtask frequency\n\n");
+            Console.Write("\tminute <number> : optional add-on for schtask frequency\n\n");
+            Console.Write("\thourly <number> : optional add-on for schtask frequency\n\n");
+            Console.Write("\tdaily <number> : optional add-on for schtask frequency\n\n");
             Console.Write("\tlogon: optional add-on for schtask frequency\n\n");
 
             Console.Write("REGISTRY KEYS:\n\n");
@@ -103,7 +104,7 @@ namespace SharPersist.lib
             Console.Write("\t-t reg -c \"<command>\" -a \"<arg>\" -k \"<pre-determined reg key>\" -m add\n\n");
             Console.Write("\t-t schtaskbackdoor -c \"<command>\" -a \"<arg>\" -n \"<schtask name>\" -m add\n\n");
             Console.Write("\t-t schtask -c \"<command>\" -a \"<arg>\" -n \"<schtask name>\" -m add\n\n");
-            Console.Write("\t-t schtask -c \"<command>\" -a \"<arg>\" -n \"<schtask name>\" -m add -o <frequency>\n\n");
+            Console.Write("\t-t schtask -c \"<command>\" -a \"<arg>\" -n \"<schtask name>\" -m add -o \"<frequency> <number>\"\n\n");
             Console.Write("\t-t startupfolder -c \"<command>\" -a \"<arg>\" -f \"<file name>\" -m add\n\n");
             Console.Write("\t-t tortoisesvn -c \"<command>\" -a \"<arg>\" -m add\n\n");
             Console.Write("\t-t service -c \"<command>\" -a \"<arg>\" -n \"<service name>\" -m add\n\n");

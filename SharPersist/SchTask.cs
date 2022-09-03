@@ -318,6 +318,8 @@ namespace SharPersist
                         string schtaskName = task.Name;
                         DateTime runTime = task.NextRunTime;
                         string theRunTime = runTime.ToString("G", CultureInfo.CurrentCulture);
+                        DateTime lastrunTime = task.LastRunTime;
+                        string theLastRunTime = lastrunTime.ToString("G", CultureInfo.CurrentCulture);
 
                         // once we find the schtask, display its details
                         if (schtaskName.ToLower().Equals(theName.ToLower()))
@@ -351,6 +353,9 @@ namespace SharPersist
                             Console.WriteLine("");
                             Console.WriteLine("[*] INFO: TASK OWNER:");
                             Console.WriteLine(owner);
+                            Console.WriteLine("");
+                            Console.WriteLine("[*] INFO: LAST RUN TIME:");
+                            Console.WriteLine(theLastRunTime);
                             Console.WriteLine("");
                             Console.WriteLine("[*] INFO: NEXT RUN TIME:");
                             Console.WriteLine(theRunTime);
@@ -417,6 +422,8 @@ namespace SharPersist
                     string schtaskName = task.Name;
                     DateTime runTime = task.NextRunTime;
                     string theRunTime = runTime.ToString("G", CultureInfo.CurrentCulture);
+                    DateTime lastrunTime = task.LastRunTime;
+                    string theLastRunTime = lastrunTime.ToString("G", CultureInfo.CurrentCulture);
                     bool taskActive = task.IsActive;
 
                     // only proceed to list schtask info if it is active
@@ -446,8 +453,29 @@ namespace SharPersist
                         if (optionSpecified)
                         {
 
-                            if (option.ToLower().Equals("hourly") && triggerType.ToLower().Equals("time"))
+                           
+                           int lastrunday = lastrunTime.Day;
+                           int nextrunday = runTime.Day;
+                           int lastrunhour = lastrunTime.Hour;
+                           int nextrunhour = runTime.Hour;
+                           int lastrunminute = lastrunTime.Minute;
+                           int nextrunminute = runTime.Minute;
+
+
+                            int timediffday = nextrunday - lastrunday;
+                            int timediffhour = nextrunhour - lastrunhour;
+                            int timediffminute = nextrunminute - lastrunminute;
+
+
+                            string[] optional_addon = option.Split(' ');
+                            string triggerTime = optional_addon[0].ToLower();
+
+
+
+                            if (triggerTime.ToLower().Equals("minute") && triggerType.ToLower().Equals("time") && timediffminute > 0 && timediffhour <= 0 && timediffday <= 0)
                             {
+
+
                                 Console.WriteLine("[*] INFO: TASK NAME:");
                                 Console.WriteLine(schtaskName);
                                 Console.WriteLine("");
@@ -456,6 +484,60 @@ namespace SharPersist
                                 Console.WriteLine("");
                                 Console.WriteLine("[*] INFO: TASK OWNER:");
                                 Console.WriteLine(owner);
+                                Console.WriteLine("");
+                                Console.WriteLine("[*] INFO: LAST RUN TIME:");
+                                Console.WriteLine(theLastRunTime);
+                                Console.WriteLine("");
+                                Console.WriteLine("[*] INFO: NEXT RUN TIME:");
+                                Console.WriteLine(theRunTime);
+                                Console.WriteLine("");
+
+                                // get the frequency in which the schtask executes
+                                TriggerCollection theTriggers = task.Definition.Triggers;
+                                string theTriggerType = "";
+                                foreach (Trigger trigger in theTriggers)
+                                {
+                                    RepetitionPattern pattern = trigger.Repetition;
+
+                                    theTriggerType = trigger.TriggerType.ToString();
+                                    Console.WriteLine("[*] INFO: TASK TRIGGER:");
+                                    Console.WriteLine(theTriggerType);
+                                    Console.WriteLine("");
+                                }
+
+
+
+                                // get all actions and print
+                                foreach (Microsoft.Win32.TaskScheduler.Action action in allActions)
+                                {
+                                    Console.WriteLine("[*] INFO: TASK ACTION:");
+                                    Console.WriteLine(action.ToString());
+                                    Console.WriteLine("");
+
+                                }
+
+                                Console.WriteLine("");
+                                Console.WriteLine("");
+                                Console.WriteLine("");
+
+                            }
+
+
+                            if (triggerTime.ToLower().Equals("hourly") && triggerType.ToLower().Equals("time") && timediffhour > 0 && timediffday <= 0)
+                            {
+
+                                
+                                Console.WriteLine("[*] INFO: TASK NAME:");
+                                Console.WriteLine(schtaskName);
+                                Console.WriteLine("");
+                                Console.WriteLine("[*] INFO: TASK PATH:");
+                                Console.WriteLine(schtaskFolder);
+                                Console.WriteLine("");
+                                Console.WriteLine("[*] INFO: TASK OWNER:");
+                                Console.WriteLine(owner);
+                                Console.WriteLine("");
+                                Console.WriteLine("[*] INFO: LAST RUN TIME:");
+                                Console.WriteLine(theLastRunTime);
                                 Console.WriteLine("");
                                 Console.WriteLine("[*] INFO: NEXT RUN TIME:");
                                 Console.WriteLine(theRunTime);
@@ -492,7 +574,7 @@ namespace SharPersist
                             }
 
 
-                            else if (option.ToLower().Equals("daily") && triggerType.ToLower().Equals("daily"))
+                            else if (triggerTime.ToLower().Equals("daily") && triggerType.ToLower().Equals("daily") && timediffday > 0)
                             {
                                 Console.WriteLine("[*] INFO: TASK NAME:");
                                 Console.WriteLine(schtaskName);
@@ -502,6 +584,9 @@ namespace SharPersist
                                 Console.WriteLine("");
                                 Console.WriteLine("[*] INFO: TASK OWNER:");
                                 Console.WriteLine(owner);
+                                Console.WriteLine("");
+                                Console.WriteLine("[*] INFO: LAST RUN TIME:");
+                                Console.WriteLine(theLastRunTime);
                                 Console.WriteLine("");
                                 Console.WriteLine("[*] INFO: NEXT RUN TIME:");
                                 Console.WriteLine(theRunTime);
@@ -537,7 +622,7 @@ namespace SharPersist
                             }
 
 
-                            else if ((option.ToLower().Equals("logon") && triggerType.ToLower().Equals("logon")) || (option.ToLower().Equals("boot") && triggerType.ToLower().Equals("boot")))
+                            else if ((triggerTime.ToLower().Equals("logon") && triggerType.ToLower().Equals("logon")) || (option.ToLower().Equals("boot") && triggerType.ToLower().Equals("boot")))
                             {
                                 Console.WriteLine("[*] INFO: TASK NAME:");
                                 Console.WriteLine(schtaskName);
@@ -547,6 +632,9 @@ namespace SharPersist
                                 Console.WriteLine("");
                                 Console.WriteLine("[*] INFO: TASK OWNER:");
                                 Console.WriteLine(owner);
+                                Console.WriteLine("");
+                                Console.WriteLine("[*] INFO: LAST RUN TIME:");
+                                Console.WriteLine(theLastRunTime);
                                 Console.WriteLine("");
                                 Console.WriteLine("[*] INFO: NEXT RUN TIME:");
                                 Console.WriteLine(theRunTime);
@@ -595,6 +683,9 @@ namespace SharPersist
                             Console.WriteLine("");
                             Console.WriteLine("[*] INFO: TASK OWNER:");
                             Console.WriteLine(owner);
+                            Console.WriteLine("");
+                            Console.WriteLine("[*] INFO: LAST RUN TIME:");
+                            Console.WriteLine(theLastRunTime);
                             Console.WriteLine("");
                             Console.WriteLine("[*] INFO: NEXT RUN TIME:");
                             Console.WriteLine(theRunTime);
