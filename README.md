@@ -37,6 +37,10 @@ The below 3rd party libraries are used in this project.
   * `Install-Package TaskScheduler -Version 2.8.11`
 * You can now build the project yourself!
 
+* Merge The Dependencies into a Standalone binary using [ILMerge](https://github.com/dotnet/ILMerge)
+
+  * `ILMerge.exe" "C:\SharPersist\SharPersist\bin\Release\SharPersist.exe" /out:"C:\SharPersist_Standalone.exe"     "C:\SharPersist\SharPersist\bin\Release\Microsoft.Win32.TaskScheduler.dll"`
+
 # Arguments/Options
 
 * <b>-t </b> - persistence technique
@@ -70,8 +74,9 @@ The below 3rd party libraries are used in this project.
 
 # Optional Add-Ons (-o)
 * `env` - optional add-on for env variable obfuscation for registry
-* `hourly` - optional add-on for schtask frequency
-* `daily` - optional add-on for schtask frequency
+* `minute <number> ` - optional add-on for schtask frequency
+* `hourly <number> ` - optional add-on for schtask frequency
+* `daily <number>` - optional add-on for schtask frequency
 * `logon` - optional add-on for schtask frequency
 
 
@@ -128,7 +133,12 @@ The below 3rd party libraries are used in this project.
 
 `SharPersist -t schtask -c "C:\Windows\System32\cmd.exe" -a "/c echo 123 >> c:\123.txt" -n "Some Task" -m add`
 
-`SharPersist -t schtask -c "C:\Windows\System32\cmd.exe" -a "/c echo 123 >> c:\123.txt" -n "Some Task" -m add -o hourly`
+##### (Runs Scheduled Task every 2 hours)
+`SharPersist -t schtask -c "C:\Windows\System32\cmd.exe" -a "/c echo 123 >> c:\123.txt" -n "Some Task" -m add -o "hourly 2"` 
+##### (Runs Scheduled Task every 5 minutes)
+`SharPersist -t schtask -c "C:\Windows\System32\cmd.exe" -a "/c echo 123 >> c:\123.txt" -n "Some Task" -m add -o "minute 5"`
+##### (Runs Scheduled Task every 2 days)
+`SharPersist -t schtask -c "C:\Windows\System32\cmd.exe" -a "/c echo 123 >> c:\123.txt" -n "Some Task" -m add -o "daily 2"`
 
 
 ## Removing Persistence Triggers (Remove)
@@ -214,6 +224,8 @@ The below 3rd party libraries are used in this project.
 **Scheduled Task**
 
 `SharPersist -t schtask -c "C:\Windows\System32\cmd.exe" -a "/c echo 123 >> c:\123.txt" -n "Some Task" -m check`
+
+##### (List Scheduled Task that runs hourly)
 
 `SharPersist -t schtask -c "C:\Windows\System32\cmd.exe" -a "/c echo 123 >> c:\123.txt" -n "Some Task" -m check -o hourly`
 
